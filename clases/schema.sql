@@ -10,6 +10,7 @@ CREATE TABLE departamentos (
     precio_renta DECIMAL(10,2) UNSIGNED NOT NULL,
     deposito DECIMAL(10,2) UNSIGNED NOT NULL,
     fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    contacto Da
     PRIMARY KEY (id),
     KEY idx_departamentos_direccion (direccion)
 );
