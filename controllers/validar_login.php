@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-require './clases/Conexion.php';
-require './vendor/autoload.php';
+require_once __DIR__ . '/../clases/Conexion.php';
+require_once __DIR__ . '/../vendor/autoload.php';
 
 $CLIENT_ID = $_ENV['GOOGLE_CLIENTE_ID'];
 $client = new Google_Client(['client_id' => $CLIENT_ID]);
@@ -10,7 +10,7 @@ $client = new Google_Client(['client_id' => $CLIENT_ID]);
 $token = $_POST['credential'] ?? null;
 
 if (!$token) {
-    header('Location: login.php');
+    header('Location: ../pages/login.php');
     exit;
 }
 
@@ -76,7 +76,7 @@ if ($payload) {
     $_SESSION['nombre'] = $nombre;
     $_SESSION['rol'] = $rol ?? 1;
 
-    header('Location: index.php');
+    header('Location: ../pages/inicio.php');
     exit;
 } else {
     echo "";

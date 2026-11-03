@@ -3,7 +3,7 @@
 # DepartamentosGPT
 
 <div align="center">
-  <img src="preview.png" alt="Vista previa de DepartamentosGPT" width="900">
+  <img src="./assets/images/preview.png" alt="Vista previa de DepartamentosGPT" width="900">
 </div>
 
 ### Instalación

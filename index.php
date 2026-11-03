@@ -10,64 +10,8 @@
     <!-- DaisyUI 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="./assets/css/style.css">
 
-    <style>
-        [data-theme="shadcn"] {
-            color-scheme: light;
-
-            /* Base */
-            --color-base-100: oklch(1 0 0);
-            --color-base-200: oklch(0.985 0 0);
-            --color-base-300: oklch(0.922 0 0);
-            --color-base-content: oklch(0.145 0 0);
-
-            /* Primary */
-            --color-primary: oklch(0.205 0 0);
-            --color-primary-content: oklch(0.985 0 0);
-
-            /* Secondary */
-            --color-secondary: oklch(0.97 0 0);
-            --color-secondary-content: oklch(0.205 0 0);
-
-            /* Accent */
-            --color-accent: oklch(0.97 0 0);
-            --color-accent-content: oklch(0.205 0 0);
-
-            /* Neutral */
-            --color-neutral: oklch(0.205 0 0);
-            --color-neutral-content: oklch(0.985 0 0);
-
-            /* Info */
-            --color-info: oklch(0.546 0.215 262.881);
-            --color-info-content: oklch(0.985 0 0);
-
-            /* Success */
-            --color-success: oklch(0.596 0.145 163.225);
-            --color-success-content: oklch(0.985 0 0);
-
-            /* Warning */
-            --color-warning: oklch(0.769 0.188 70.08);
-            --color-warning-content: oklch(0.205 0 0);
-
-            /* Error / Destructive */
-            --color-error: oklch(0.577 0.245 27.325);
-            --color-error-content: oklch(0.985 0 0);
-
-            /* Radios */
-            --radius-selector: 0.375rem;
-            --radius-field: 0.5rem;
-            --radius-box: 0.625rem;
-
-            /* Tamaños */
-            --size-selector: 0.25rem;
-            --size-field: 0.25rem;
-
-            /* Bordes y efectos */
-            --border: 1px;
-            --depth: 0;
-            --noise: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -96,7 +40,7 @@
             </div>
         </div>
         <div class="navbar-end">
-            <a class="btn btn-primary" href="login.php">Acceder</a>
+            <a class="btn btn-primary" href="./pages/login.php">Acceder</a>
         </div>
     </div>
 
