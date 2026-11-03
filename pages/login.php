@@ -10,65 +10,8 @@
     <!-- DaisyUI 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="../assets/css/style.css">
 
-    
-    <style>
-        [data-theme="shadcn"] {
-            color-scheme: light;
-
-            /* Base */
-            --color-base-100: oklch(1 0 0);
-            --color-base-200: oklch(0.985 0 0);
-            --color-base-300: oklch(0.922 0 0);
-            --color-base-content: oklch(0.145 0 0);
-
-            /* Primary */
-            --color-primary: oklch(0.205 0 0);
-            --color-primary-content: oklch(0.985 0 0);
-
-            /* Secondary */
-            --color-secondary: oklch(0.97 0 0);
-            --color-secondary-content: oklch(0.205 0 0);
-
-            /* Accent */
-            --color-accent: oklch(0.97 0 0);
-            --color-accent-content: oklch(0.205 0 0);
-
-            /* Neutral */
-            --color-neutral: oklch(0.205 0 0);
-            --color-neutral-content: oklch(0.985 0 0);
-
-            /* Info */
-            --color-info: oklch(0.546 0.215 262.881);
-            --color-info-content: oklch(0.985 0 0);
-
-            /* Success */
-            --color-success: oklch(0.596 0.145 163.225);
-            --color-success-content: oklch(0.985 0 0);
-
-            /* Warning */
-            --color-warning: oklch(0.769 0.188 70.08);
-            --color-warning-content: oklch(0.205 0 0);
-
-            /* Error / Destructive */
-            --color-error: oklch(0.577 0.245 27.325);
-            --color-error-content: oklch(0.985 0 0);
-
-            /* Radios */
-            --radius-selector: 0.375rem;
-            --radius-field: 0.5rem;
-            --radius-box: 0.625rem;
-
-            /* Tamaños */
-            --size-selector: 0.25rem;
-            --size-field: 0.25rem;
-
-            /* Bordes y efectos */
-            --border: 1px;
-            --depth: 0;
-            --noise: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -80,7 +23,7 @@
         <div class="navbar-center hidden lg:flex">
         </div>
         <div class="navbar-end">
-            <a class="btn btn-primary" href="login.php">Acceder</a>
+            <a class="btn btn-primary" href="registro.php">Registrarse</a>
         </div>
     </div>
 
@@ -93,11 +36,11 @@
                         <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
                             <div class="space-y-4">
                                 <h1 class="text-4xl tracking-tight sm:text-6xl">
-                                    Hola, Ingresa tu correo electrónico
+                                    ¿Cuál es tu correo electrónico?
                                 </h1>
 
                                 <p class="max-w-xl text-base leading-7 text-base-content/60">
-                                    Escribe el correo que utilizarás para acceder a tu cuenta.
+                                    Escribe el correo que utilizas para acceder a tu cuenta.
                                 </p>
                             </div>
 
@@ -147,11 +90,11 @@
 
                             <div class="space-y-4">
                                 <h1 class="text-4xl tracking-tight sm:text-6xl">
-                                    Encantados de tenerte aqui
+                                    Nos alegramos de verte de nuevo
                                 </h1>
 
                                 <p class="max-w-xl text-base leading-7 text-base-content/60">
-                                    Introduce una contraseña para acceder a tu cuenta.
+                                    Introduce tu contraseña para acceder a tu cuenta.
                                 </p>
                             </div>
 
@@ -166,10 +109,10 @@
 
                             <div class="flex w-full max-w-xl flex-col gap-3">
 
-                                <div href="#auth-password-2" class="aura aura-silver">
-                                    <a href="#auth-password-2" class="btn btn-primary btn-lg w-full">
-                                        Continuar
-                                    </a>
+                                <div class="aura aura-silver">
+                                    <button type="submit" class="btn btn-primary btn-lg w-full">
+                                        Acceder
+                                    </button>
                                 </div>
 
                                 <div class="divider my-1 text-sm text-base-content/50">
@@ -180,50 +123,6 @@
                                     Regresar
                                 </a>
 
-                            </div>
-
-                        </div>
-                    </div>
-                </section>
-                <section id="auth-password-2" class="carousel-item w-full shrink-0">
-                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
-
-                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
-
-                            <div class="space-y-4">
-                                <h1 class="text-4xl tracking-tight sm:text-6xl">
-                                    Confirmación
-                                </h1>
-
-                                <p class="max-w-xl text-base leading-7 text-base-content/60">
-                                    Confirma la contraseña que utilizarás para acceder a tu cuenta.
-                                </p>
-                            </div>
-
-                            <fieldset class="fieldset w-full max-w-xl gap-2">
-                                <label class="label" for="password">
-                                    Confirmación de contraseña
-                                </label>
-
-                                <input type="password" id="password" name="password" class="input input-lg w-full"
-                                    placeholder="Confirma tu contraseña" autocomplete="current-password" />
-                            </fieldset>
-
-                            <div class="flex w-full max-w-xl flex-col gap-3">
-
-                                <div href="index.php" class="aura aura-silver">
-                                    <button type="submit" class="btn btn-primary btn-lg w-full">
-                                        Registrar
-                                    </button>
-                                </div>
-
-                                <div class="divider my-1 text-sm text-base-content/50">
-                                    O
-                                </div>
-
-                                <a href="#auth-password" class="btn btn-secondary btn-lg w-full">
-                                    Regresar
-                                </a>
                             </div>
 
                         </div>
