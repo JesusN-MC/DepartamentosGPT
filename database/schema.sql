@@ -49,33 +49,6 @@ CREATE TABLE usuarios (
     CHECK (estado IN (0, 1))
 );
 
-
-CREATE TABLE documentos_requeridos_inquilinos (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    nombre VARCHAR(100) NOT NULL,
-    fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    UNIQUE KEY uq_documentos_requeridos_nombre (nombre)
-);
-
-
-CREATE TABLE documentos (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    id_inquilino INT UNSIGNED NOT NULL,
-    id_documento_requerido INT UNSIGNED NOT NULL,
-    ruta_archivo VARCHAR(500) NOT NULL,
-    estado ENUM('pendiente', 'aprobado', 'rechazado')
-        NOT NULL DEFAULT 'pendiente',
-    fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY (id),
-    KEY idx_documentos_inquilino (id_inquilino),
-    KEY idx_documentos_tipo (id_documento_requerido),
-    FOREIGN KEY (id_inquilino) REFERENCES usuarios(id),
-    FOREIGN KEY (id_documento_requerido)
-        REFERENCES documentos_requeridos_inquilinos(id)
-);
-
-
 CREATE TABLE contratos (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     folio VARCHAR(30) NOT NULL,
@@ -228,7 +201,8 @@ BEGIN
     );
 END$$
 
--- 3. Insertar un registro en la tabla logs
+
+-- 3. Insertar un nuevo usuario y devolver el ID generado
 CREATE PROCEDURE insertar_usuario(
     IN p_correo VARCHAR(254),
     IN p_token_usuario VARCHAR(255)
@@ -244,6 +218,213 @@ BEGIN
     );
 
     SELECT LAST_INSERT_ID() AS nuevo_id;
+END$$
+
+-- 4. Insertar un nuevo departamento y devolver el ID generado
+CREATE PROCEDURE insertar_departamento (
+    p_nombre_numero VARCHAR(50),
+    p_edificio VARCHAR(100),
+    p_direccion VARCHAR(255),
+    p_piso VARCHAR(20),
+    p_habitaciones TINYINT UNSIGNED,
+    p_banos DECIMAL(3,1) UNSIGNED,
+    p_descripcion TEXT,
+    p_precio_renta DECIMAL(10,2) UNSIGNED ,
+    p_deposito DECIMAL(10,2) UNSIGNED,
+    p_contacto VARCHAR(100)
+)
+BEGIN
+    INSERT INTO departamentos (
+        nombre_numero,
+        edificio,
+        direccion,
+        piso,
+        habitaciones,
+        banos,
+        descripcion,
+        precio_renta,
+        deposito,
+        contacto
+    )
+    VALUES (
+        p_nombre_numero,
+        p_edificio,
+        p_direccion,
+        p_piso,
+        p_habitaciones,
+        p_banos,
+        p_descripcion,
+        p_precio_renta,
+        p_deposito,
+        p_contacto
+    );
+
+    SELECT LAST_INSERT_ID() AS nuevo_id;
+END$$
+
+-- 5. Actualizar un departamento
+CREATE PROCEDURE actualizar_departamento (
+    IN p_id INT UNSIGNED,
+    IN p_nombre_numero VARCHAR(50),
+    IN p_edificio VARCHAR(100),
+    IN p_direccion VARCHAR(255),
+    IN p_piso VARCHAR(20),
+    IN p_habitaciones TINYINT UNSIGNED,
+    IN p_banos DECIMAL(3,1) UNSIGNED,
+    IN p_descripcion TEXT,
+    IN p_precio_renta DECIMAL(10,2) UNSIGNED,
+    IN p_deposito DECIMAL(10,2) UNSIGNED,
+    IN p_contacto VARCHAR(100)
+)
+BEGIN
+    UPDATE departamentos
+    SET nombre_numero = COALESCE(p_nombre_numero, nombre_numero),
+        edificio = COALESCE(p_edificio, edificio),
+        direccion = COALESCE(p_direccion, direccion),
+        piso = COALESCE(p_piso, piso),
+        habitaciones = COALESCE(p_habitaciones, habitaciones),
+        banos = COALESCE(p_banos, banos),
+        descripcion = p_descripcion,
+        precio_renta = COALESCE(p_precio_renta, precio_renta),
+        deposito = COALESCE(p_deposito, deposito),
+        contacto = COALESCE(p_contacto, contacto)
+    WHERE id = p_id;
+END$$
+
+
+-- 6. Insertar una imagen a un departamento
+CREATE PROCEDURE insertar_imagen (
+    IN p_id_departamento INT UNSIGNED,
+    IN p_ruta TEXT
+)
+BEGIN
+    INSERT INTO imagenes (
+        id_departamento,
+        ruta
+    )
+    VALUES (
+        p_id_departamento,
+        p_ruta
+    );
+END$$
+
+
+-- 7. Eliminar una imagen de un departamento
+CREATE PROCEDURE eliminar_imagen (
+    IN p_id_imagen INT UNSIGNED
+)
+BEGIN
+    DELETE FROM imagenes
+    WHERE id = p_id_imagen;
+END$$
+
+
+-- 8. Consultar departamentos e incluir sus imagenes en un arreglo 
+CREATE PROCEDURE consultar_departamentos ()
+BEGIN
+    -- Falta verificar que no existan contratos vigentes y mantenmientos pendientes para asignar un estado
+    SELECT d.*, 
+           COALESCE(
+               (
+                   SELECT JSON_ARRAYAGG(i.ruta)
+                   FROM imagenes i
+                   WHERE i.id_departamento = d.id
+               ),
+               JSON_ARRAY()
+           ) AS imagenes
+    FROM departamentos d;
+END$$
+
+
+-- 9. Insertar un mantenimiento y devolver el ID generado
+CREATE PROCEDURE insertar_mantenimiento (
+    IN p_id_departamento INT UNSIGNED,
+    IN p_id_usuario_registro INT UNSIGNED,
+    IN p_titulo VARCHAR(150),
+    IN p_descripcion TEXT,
+    IN p_fecha_reporte DATETIME,
+    IN p_fecha_inicio DATETIME,
+    IN p_fecha_finalizacion DATETIME,
+    IN p_responsable VARCHAR(150),
+    IN p_costo DECIMAL(10,2) UNSIGNED,
+    IN p_observaciones TEXT
+)
+BEGIN
+INSERT INTO mantenimientos (
+    id_departamento,
+    id_usuario_registro,
+    titulo,
+    descripcion,
+    fecha_reporte,
+    fecha_inicio,
+    fecha_finalizacion,
+    responsable,
+    costo,
+    observaciones
+)
+VALUES (
+    p_id_departamento,
+    p_id_usuario_registro,
+    p_titulo,
+    p_descripcion,
+    p_fecha_reporte,
+    p_fecha_inicio,
+    p_fecha_finalizacion,
+    p_responsable,
+    p_costo,
+    p_observaciones
+);
+
+ SELECT LAST_INSERT_ID() AS nuevo_id;
+END$$
+
+
+ -- 10. Consultar todos los mantenimientos
+CREATE PROCEDURE consultar_mantenimientos ()
+BEGIN
+    SELECT *
+    FROM mantenimientos;
+END$$
+
+
+ -- 11. Actualizar un mantenimiento; los campos nullable aceptan NULL
+CREATE PROCEDURE actualizar_mantenimiento (
+    IN p_id INT UNSIGNED,
+    IN p_id_departamento INT UNSIGNED,
+    IN p_id_usuario_registro INT UNSIGNED,
+    IN p_titulo VARCHAR(150),
+    IN p_descripcion TEXT,
+    IN p_fecha_reporte DATETIME,
+    IN p_fecha_inicio DATETIME,
+    IN p_fecha_finalizacion DATETIME,
+    IN p_estado ENUM('pendiente', 'programado', 'en_proceso', 'finalizado', 'cancelado'),
+    IN p_responsable VARCHAR(150),
+    IN p_costo DECIMAL(10,2) UNSIGNED,
+    IN p_observaciones TEXT
+)
+BEGIN
+    UPDATE mantenimientos
+    SET id_departamento = COALESCE(p_id_departamento, id_departamento),
+        id_usuario_registro = COALESCE(p_id_usuario_registro, id_usuario_registro),
+        titulo = COALESCE(p_titulo, titulo),
+        descripcion = COALESCE(p_descripcion, descripcion),
+        fecha_reporte = COALESCE(p_fecha_reporte, fecha_reporte),
+        fecha_inicio = p_fecha_inicio,
+        fecha_finalizacion = p_fecha_finalizacion,
+        estado = COALESCE(p_estado, estado),
+        responsable = p_responsable,
+        costo = p_costo,
+        observaciones = p_observaciones
+    WHERE id = p_id;
+END$$
+
+-- 12. Eliminar un mantenimiento
+CREATE PROCEDURE eliminar_mantenimiento (
+    IN p_id INT UNSIGNED
+)
+BEGIN
+    DELETE FROM mantenimientos
+    WHERE id = p_id;
 END$$
 
 DELIMITER ;
