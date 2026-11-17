@@ -5,108 +5,62 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DaisyUI - Shadcn Light</title>
+    <title>DepartamentosGPT · Encuentra tu espacio</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- DaisyUI 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="stylesheet" href="./assets/css/style.css?v=20261115-3">
 
 </head>
 
-<body>
+<body class="bg-base-200 font-[family-name:Inter,sans-serif]">
     <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-sm">
+    <div class="app-navbar navbar bg-base-100 shadow-sm">
         <div class="navbar-start">
             <a class="btn btn-ghost text-xl" href="index.php">DepartamentosGPT</a>
         </div>
-        <div class="navbar-center hidden lg:flex">
-            <button class="btn sm:hidden" popovertarget="my-megamenu-2">Menu</button>
-            <div class="megamenu max-sm:megamenu-vertical megamenu-wide p-2" id="my-megamenu-2" popover>
-                <span class="megamenu-active"></span>
-
-                <button popovertarget="b1">Servicios</button>
-                <div id="b1" popover>
-                    <ul class="menu menu-horizontal">
-                        <li><a>Enterprise</a></li>
-                        <li><a>CRM software</a></li>
-                        <li><a>Security</a></li>
-                        <li><a>Consulting</a></li>
-                    </ul>
-                </div>
-
-                <button popovertarget="b2" class="after:content-none">Departamentos</button>
-                <button popovertarget="b3" class="after:content-none">Nosotros</button>
-            </div>
-        </div>
+        <nav class="navbar-center hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+            <a class="btn btn-ghost btn-sm" href="./pages/departamentos.php">Departamentos</a>
+        </nav>
         <div class="navbar-end">
             <a class="btn btn-primary" href="./pages/login.php">Acceder</a>
         </div>
     </div>
 
     <!-- Hero Section -->
-    <div class="hero bg-white h-[90vh] lg:px-[13vw]">
+    <main class="hero h-[90vh] bg-base-200 lg:px-[13vw]">
         <div class="hero-content flex-col lg:flex-row-reverse">
-
-            <img alt="Tailwind CSS hero component"
+            <img alt="Interior de un departamento"
                 src="https://cdn.pixabay.com/photo/2024/08/31/11/18/kitchen-9011246_1280.jpg"
-                class="max-w-[90vw] hidden md:block md:max-w-lg rounded-lg shadow-2xl" />
+                class="hidden max-w-[90vw] rounded-lg shadow-2xl md:block md:max-w-lg" />
 
             <div class="flex flex-col justify-between self-stretch py-6">
-                <div class="badge badge-secondary">Administración inmobiliaria</div>
-                <h1 class="text-6xl">Encuentra tu nuevo espacio para llamar hogar.</h1>
-                <p class="py-6 justify-start text-lg">
+                <div class="badge badge-soft">Administración inmobiliaria</div>
+                <h1 class="text-6xl font-semibold tracking-tight">Encuentra tu nuevo espacio para llamar hogar.</h1>
+                <p class="py-6 text-lg">
                     Te ayudamos a encontrar departamentos en renta y venta, con la mejor ubicación y precio. Nuestro
                     equipo de expertos te guiará en todo el proceso para que encuentres el lugar perfecto para ti.
                 </p>
-                <div class="flex flex-wrap gap-2 justify-start ml-[.5rem]">
-                    <button class="btn btn-secondary">Conocer más</button>
-                    <div class="aura aura-silver">
-                        <button class="btn btn-primary">Ver departamentos</button>
-                    </div>
+                <div class="ml-[.5rem] flex flex-wrap gap-2">
+                    <a href="./pages/departamentos.php" class="btn btn-secondary">Conocer más</a>
+                    <a href="./pages/departamentos.php" class="btn btn-primary">Ver departamentos</a>
                 </div>
             </div>
         </div>
-    </div>
+    </main>
 
     <!-- Footer -->
-    <footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
+    <footer class="app-footer footer footer-horizontal footer-center p-8">
         <nav class="grid grid-flow-col gap-4">
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
-        </nav>
-        <nav>
-            <div class="grid grid-flow-col gap-4">
-                <a>
-                    <svg aria-label="Twitter" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" class="fill-current">
-                        <path
-                            d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z">
-                        </path>
-                    </svg>
-                </a>
-                <a>
-                    <svg aria-label="YouTube" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" class="fill-current">
-                        <path
-                            d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z">
-                        </path>
-                    </svg>
-                </a>
-                <a>
-                    <svg aria-label="Facebook" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                        viewBox="0 0 24 24" class="fill-current">
-                        <path
-                            d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v3.385z">
-                        </path>
-                    </svg>
-                </a>
-            </div>
+            <a class="link link-hover" href="./pages/departamentos.php">Departamentos</a>
+            <a class="link link-hover" href="./pages/login.php">Acceder</a>
         </nav>
         <aside>
-            <p>Copyright © {new Date().getFullYear()} - All right reserved by ACME Industries Ltd</p>
+            <p>DepartamentosGPT · <?= date('Y') ?></p>
         </aside>
     </footer>
 </body>

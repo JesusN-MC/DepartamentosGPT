@@ -4,6 +4,9 @@ session_start();
 require_once __DIR__ . '/../clases/Conexion.php';
 require_once __DIR__ . '/../vendor/autoload.php';
 
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/..');
+$dotenv->load();
+
 $CLIENT_ID = $_ENV['GOOGLE_CLIENTE_ID'];
 $client = new Google_Client(['client_id' => $CLIENT_ID]);
 
@@ -41,7 +44,29 @@ if ($payload) {
 
     if ($user) {
         if ($user['estado'] == 0) {
-            echo "";
+                        echo "
+            <html>
+                <head>
+                <meta charset='UTF-8'>
+                <title>Error</title>
+                <link rel='icon' type='image/png' href='img/logo.png' />
+                <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+                </head>
+                <body>
+                <script>
+                    Swal.fire({
+                    icon: 'error',
+                    title: 'Usuario inactivo',
+                    text: 'El usuario no se encuentra activo.',
+                    confirmButtonText: 'Volver al login',
+                    confirmButtonColor: '#d33'
+                    }).then(() => {
+                    window.location = '../pages/login.php';
+                    });
+                </script>
+                </body>
+            </html>
+            ";
             exit;
         }
         $mensaje = 'Usuario inicio sesion correctamente';
@@ -49,11 +74,13 @@ if ($payload) {
         $idUsuario = $user['id'];
         $rol = $user['rol'];
 
+
     } else {
         $token_usuario = bin2hex(random_bytes((32)));
 
-        $sql_insertarUsuarioLogin = 'CALL insertar_usuario(:correo, :token_usuario)';
+        $sql_insertarUsuarioLogin = 'CALL insertar_usuario(:nombre, :correo, :token_usuario)'; 
         $stmt_InsertarUsuarioLogin = $conn->prepare($sql_insertarUsuarioLogin);
+        $stmt_InsertarUsuarioLogin->bindParam(':nombre', $nombre, PDO::PARAM_STR);
         $stmt_InsertarUsuarioLogin->bindParam(':correo', $correo, PDO::PARAM_STR);
         $stmt_InsertarUsuarioLogin->bindParam(':token_usuario', $token_usuario, PDO::PARAM_STR);
         $stmt_InsertarUsuarioLogin->execute();
@@ -76,9 +103,35 @@ if ($payload) {
     $_SESSION['nombre'] = $nombre;
     $_SESSION['rol'] = $rol ?? 1;
 
-    header('Location: ../pages/inicio.php');
+    if ($rol == 1 ) {
+        header('Location: ../pages/departamentos.php', true, 303);
+    } elseif ($rol == 2) {
+        header('Location: ../pages/dashboard.php', true, 303);
+    }
     exit;
 } else {
-    echo "";
+        echo "
+    <html>
+        <head>
+        <meta charset='UTF-8'>
+        <title>Error</title>
+        <link rel='icon' type='image/png' href='img/logo.png' />
+        <script src='https://cdn.jsdelivr.net/npm/sweetalert2@11'></script>
+        </head>
+        <body>
+        <script>
+            Swal.fire({
+            icon: 'error',
+            title: 'Token inválido',
+            text: 'No se pudo verificar la sesión de Google.',
+            confirmButtonText: 'Volver al login',
+            confirmButtonColor: '#d33'
+            }).then(() => {
+            window.location = '../pages/login.php';
+            });
+        </script>
+        </body>
+    </html>
+    ";
     exit;
 }
