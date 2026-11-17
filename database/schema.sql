@@ -11,6 +11,11 @@ CREATE TABLE departamentos (
     deposito DECIMAL(10,2) UNSIGNED NOT NULL,
     fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
     contacto VARCHAR(100) NOT NULL,
+    estado ENUM(
+        'Disponible',
+        'En renta',
+        'En Mantenimiento'
+    ) NOT NULL DEFAULT 'Disponible',
     PRIMARY KEY (id),
     KEY idx_departamentos_direccion (direccion)
 );
@@ -30,9 +35,6 @@ CREATE TABLE imagenes (
 CREATE TABLE usuarios (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     nombre VARCHAR(100) NULL,
-    apellidos VARCHAR(100) NULL,
-    fecha_nacimiento DATE NULL,
-    telefono VARCHAR(20) NULL,
     correo VARCHAR(254) NOT NULL,
     contrasena VARCHAR(255) NULL,
     fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -172,7 +174,6 @@ BEGIN
     SELECT
         id,
         nombre,
-        apellidos,
         correo,
         rol,
         estado,
@@ -183,7 +184,7 @@ BEGIN
 END$$
 
 
--- 2. Insertar un registro en la tabla logs
+-- 2. Insertar un registro en la tabla logs 
 CREATE PROCEDURE insertar_log(
     IN p_mensaje TEXT,
     IN p_id_usuario INT UNSIGNED
@@ -204,15 +205,18 @@ END$$
 
 -- 3. Insertar un nuevo usuario y devolver el ID generado
 CREATE PROCEDURE insertar_usuario(
+    IN p_nombre VARCHAR(100),
     IN p_correo VARCHAR(254),
     IN p_token_usuario VARCHAR(255)
 )
 BEGIN
     INSERT INTO usuarios (
+        nombre,
         correo,
         token_usuario
     )
     VALUES (
+        p_nombre,
         p_correo,
         p_token_usuario
     );

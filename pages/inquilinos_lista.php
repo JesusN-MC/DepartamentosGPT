@@ -16,35 +16,26 @@ $inquilinos = [
 
     <title>Inquilinos - DepartamentosGPT</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <!-- DaisyUI 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261115-3">
 </head>
 
-<body class="bg-white">
+<body class="bg-base-200 font-[family-name:Inter,sans-serif]">
     <!-- Navbar -->
     <header class="sticky top-0 z-50">
-        <div class="navbar bg-base-100 shadow-sm">
+        <div class="app-navbar navbar bg-base-100 shadow-sm">
             <div class="navbar-start">
                 <a class="btn btn-ghost text-xl" href="../index.php">DepartamentosGPT</a>
             </div>
-            <div class="navbar-center hidden lg:flex">
-                <div class="megamenu megamenu-wide p-2" id="my-megamenu-2" popover>
-                    <span class="megamenu-active"></span>
-                    <button popovertarget="b1">Servicios</button>
-                    <div id="b1" popover>
-                        <ul class="menu menu-horizontal">
-                            <li><a>Enterprise</a></li>
-                            <li><a>CRM software</a></li>
-                            <li><a>Security</a></li>
-                            <li><a>Consulting</a></li>
-                        </ul>
-                    </div>
-                    <button popovertarget="b2" class="after:content-none">Departamentos</button>
-                    <button popovertarget="b3" class="after:content-none">Nosotros</button>
-                </div>
-            </div>
+            <nav class="navbar-center hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
+                <a class="btn btn-ghost btn-sm" href="../index.php">Inicio</a>
+                <a class="btn btn-ghost btn-sm" href="./departamentos.php">Departamentos</a>
+            </nav>
             <div class="navbar-end">
                 <a class="btn btn-primary" href="./login.php">Acceder</a>
             </div>
@@ -52,18 +43,25 @@ $inquilinos = [
     </header>
 
     <!-- Lista de inquilinos -->
-    <main class="mx-auto max-w-5xl px-6 py-8">
+    <main class="app-page">
 
-        <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div class="page-heading">
             <div>
-                <h1 class="text-3xl font-semibold">Inquilinos</h1>
-                <p class="text-sm text-base-content/60"><?= count($inquilinos) ?> registrados</p>
+                <h1 class="page-title">Inquilinos</h1>
+                <p class="page-description"><?= count($inquilinos) ?> registrados</p>
             </div>
-            <button class="btn btn-primary">+ Nuevo inquilino</button>
+            <button class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    aria-hidden="true">
+                    <path d="M12 5v14M5 12h14" />
+                </svg>
+                Nuevo inquilino
+            </button>
         </div>
 
         <!-- Filtros -->
-        <form class="mb-4 flex flex-wrap items-center gap-2" method="get">
+        <form class="surface-card mb-4 flex flex-wrap items-center gap-3 p-4" method="get">
             <label class="input flex min-w-48 flex-1 items-center gap-2">
                 <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                     <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2.5" fill="none"
@@ -86,8 +84,8 @@ $inquilinos = [
         </form>
 
         <!-- Tabla -->
-        <div class="overflow-x-auto rounded-box border border-base-300">
-            <table class="table">
+        <div class="surface-card overflow-x-auto">
+            <table class="table table-zebra">
                 <thead>
                     <tr>
                         <th>Inquilino</th>
@@ -123,9 +121,9 @@ $inquilinos = [
                             </td>
                             <td>
                                 <?php if ((int) $u['estado'] === 1): ?>
-                                    <span class="badge badge-secondary">Activo</span>
+                                    <span class="badge badge-soft badge-success">Activo</span>
                                 <?php else: ?>
-                                    <span class="badge badge-outline">Inactivo</span>
+                                    <span class="badge badge-soft">Inactivo</span>
                                 <?php endif; ?>
                             </td>
                             <td class="text-right">
@@ -150,15 +148,13 @@ $inquilinos = [
     </main>
 
     <!-- Footer -->
-    <footer class="footer footer-horizontal footer-center bg-base-200 text-base-content rounded p-10">
+    <footer class="app-footer footer footer-horizontal footer-center p-8">
         <nav class="grid grid-flow-col gap-4">
-            <a class="link link-hover">About us</a>
-            <a class="link link-hover">Contact</a>
-            <a class="link link-hover">Jobs</a>
-            <a class="link link-hover">Press kit</a>
+            <a class="link link-hover" href="../index.php">Inicio</a>
+            <a class="link link-hover" href="./login.php">Acceder</a>
         </nav>
         <aside>
-            <p>Copyright © <?= date('Y') ?> - All right reserved by ACME Industries Ltd</p>
+            <p>DepartamentosGPT · <?= date('Y') ?></p>
         </aside>
     </footer>
 </body>

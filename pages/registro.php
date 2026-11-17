@@ -5,38 +5,85 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DaisyUI - Shadcn Light</title>
+    <title>Crear cuenta - DepartamentosGPT</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Servicio de Google OAuth -->
+    <script src="https://accounts.google.com/gsi/client" async></script>
 
     <!-- DaisyUI 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261115-3">
 
 </head>
 
-<body>
-    <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-sm min-h-[72px]">
-        <div class="navbar-start">
-            <a class="btn btn-ghost text-xl" href="index.php">DepartamentosGPT</a>
-        </div>
-        <div class="navbar-center hidden lg:flex">
-        </div>
-        <div class="navbar-end">
-            <a class="btn btn-primary" href="login.php">Acceder</a>
-        </div>
-    </div>
+<body class="bg-base-200 font-[family-name:Inter,sans-serif]">
+    <?php 
+        include '../components/navbar.php';
+        layout('auth-r');
+    ?>
 
     <!-- Login -->
-    <main class="flex h-[90vh] flex-col bg-base-100">
+    <main class="flex h-[90vh] flex-col bg-base-200">
         <form action="departamentos.php" method="POST" class="flex flex-1 flex-col">
             <div class="carousel carousel-horizontal carousel-start w-full scroll-smooth">
+                <section id="auth-name-one" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">
+                                    Hola, Cual es tu nombre?
+                                </h1>
+
+                                <p class="max-w-xl text-base leading-7 text-base-content/60">
+                                    Escribe tu nombre completo.
+                                </p>
+                            </div>
+
+                            <fieldset class="fieldset w-full max-w-xl gap-2">
+                                <label class="label" for="name">
+                                    Nombre
+                                </label>
+
+                                <input type="text" id="name" name="name" class="input input-lg w-full"
+                                    placeholder="Tu nombre completo" autocomplete="name" />
+                            </fieldset>
+
+                            <div class="flex w-full max-w-xl flex-col gap-3">
+                                <div class="aura aura-silver">
+                                    <a href="#auth-email" class="btn btn-primary btn-lg w-full">
+                                        Continuar
+                                    </a>
+                                </div>
+
+                                <div class="divider my-1 text-sm text-base-content/50">
+                                    O
+                                </div>
+
+                                <div id="g_id_onload"
+                                    data-client_id="12487998053-u7foc6j4f1rie3nm9p7cf1tvb42ij753.apps.googleusercontent.com"
+                                    data-login_uri="http://localhost/proyecto_departamentos/controllers/validar_login.php"
+                                    data-auto_prompt="false" data-callback="onSignIn">
+                                </div>
+
+                                <div class="g_id_signin flex justify-center" data-type="standard" data-size="large"
+                                    data-theme="outline" data-text="sign_in_with" data-shape="rectangular"
+                                    data-logo_alignment="left">
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
                 <section id="auth-email" class="carousel-item w-full shrink-0">
                     <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
                         <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
                             <div class="space-y-4">
                                 <h1 class="text-4xl tracking-tight sm:text-6xl">
-                                    Hola, Ingresa tu correo electrónico
+                                    Ahora, Ingresa tu correo electrónico
                                 </h1>
 
                                 <p class="max-w-xl text-base leading-7 text-base-content/60">
@@ -64,20 +111,9 @@
                                     O
                                 </div>
 
-                                <button type="button" class="btn btn-secondary btn-lg w-full">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"
-                                        aria-hidden="true">
-                                        <path fill="#EA4335"
-                                            d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 3.06 13.22l7.98 6.19C12.93 13.72 18.01 9.5 24 9.5z" />
-                                        <path fill="#4285F4"
-                                            d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.76 7.18l7.73 6C44.42 37.98 46.98 31.82 46.98 24.55z" />
-                                        <path fill="#FBBC05"
-                                            d="M11.04 28.59A14.4 14.4 0 0 1 10.27 24c0-1.59.27-3.13.76-4.59l-7.98-6.19A23.9 23.9 0 0 0 0 24c0 3.87.93 7.52 3.06 10.78l7.98-6.19z" />
-                                        <path fill="#34A853"
-                                            d="M24 48c6.48 0 11.93-2.13 15.91-5.8l-7.73-6c-2.15 1.45-4.91 2.3-8.18 2.3-5.99 0-11.07-4.22-12.96-9.91l-7.98 6.19C6.51 41.62 14.62 48 24 48z" />
-                                    </svg>
-                                    Continuar con Google
-                                </button>
+                                <a href="#auth-name-one" class="btn btn-secondary btn-lg w-full">
+                                    Regresar
+                                </a>
                             </div>
 
                         </div>
@@ -175,7 +211,25 @@
             </div>
         </form>
 
+        <!-- Loading spinner -->
+        <div id="loading" class="hidden"> 
+                <div class="fixed w-[100vw] h-[100vh] top-0 left-0 z-50 flex items-end justify-end bg-gray-900/50 p-4">
+                <div role="alert" class="alert alert-vertical sm:alert-horizontal w-full max-w-[400px]">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                        class="stroke-current text-info h-6 w-6 shrink-0">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div>
+                        <h3 class="font-bold">Iniciando sesión...</h3>
+                        <div class="text-xs">Por favor, espera un momento.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
+    <script src="../assets/js/main.js">
+    </script>
 </body>
 
 </html>

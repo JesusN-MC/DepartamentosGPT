@@ -5,87 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>DaisyUI - Shadcn Light</title>
+    <title>Nuevo departamento - DepartamentosGPT</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <!-- DaisyUI 5 CDN -->
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
 
-    <style>
-        [data-theme="shadcn"] {
-            color-scheme: light;
-
-            /* Base */
-            --color-base-100: oklch(1 0 0);
-            --color-base-200: oklch(0.985 0 0);
-            --color-base-300: oklch(0.922 0 0);
-            --color-base-content: oklch(0.145 0 0);
-
-            /* Primary */
-            --color-primary: oklch(0.205 0 0);
-            --color-primary-content: oklch(0.985 0 0);
-
-            /* Secondary */
-            --color-secondary: oklch(0.97 0 0);
-            --color-secondary-content: oklch(0.205 0 0);
-
-            /* Accent */
-            --color-accent: oklch(0.97 0 0);
-            --color-accent-content: oklch(0.205 0 0);
-
-            /* Neutral */
-            --color-neutral: oklch(0.205 0 0);
-            --color-neutral-content: oklch(0.985 0 0);
-
-            /* Info */
-            --color-info: oklch(0.546 0.215 262.881);
-            --color-info-content: oklch(0.985 0 0);
-
-            /* Success */
-            --color-success: oklch(0.596 0.145 163.225);
-            --color-success-content: oklch(0.985 0 0);
-
-            /* Warning */
-            --color-warning: oklch(0.769 0.188 70.08);
-            --color-warning-content: oklch(0.205 0 0);
-
-            /* Error / Destructive */
-            --color-error: oklch(0.577 0.245 27.325);
-            --color-error-content: oklch(0.985 0 0);
-
-            /* Radios */
-            --radius-selector: 0.375rem;
-            --radius-field: 0.5rem;
-            --radius-box: 0.625rem;
-
-            /* Tamaños */
-            --size-selector: 0.25rem;
-            --size-field: 0.25rem;
-
-            /* Bordes y efectos */
-            --border: 1px;
-            --depth: 0;
-            --noise: 0;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/css/style.css?v=20261115-3">
 </head>
 
-<body>
+<body class="bg-base-200 font-[family-name:Inter,sans-serif]">
     <!-- Navbar -->
-    <div class="navbar bg-base-100 shadow-sm min-h-[72px]">
+    <div class="app-navbar navbar bg-base-100 shadow-sm min-h-[72px]">
         <div class="navbar-start">
             <a class="btn btn-ghost text-xl" href="index.php">DepartamentosGPT</a>
         </div>
         <div class="navbar-center hidden lg:flex">
         </div>
         <div class="navbar-end">
-            <a class="btn btn-primary" href="departamentos.php">Ver departamentos</a>
+            <a class="btn btn-ghost" href="./gestion_departamentos.php">Volver a gestión</a>
         </div>
     </div>
 
 
-    <main class="flex h-[90vh] flex-col bg-base-100">
-        <form action="departamentos.php" method="POST" class="flex flex-1 flex-col">
+    <main class="flex h-[90vh] flex-col bg-base-200">
+        <form class="flex flex-1 flex-col">
             <div class="carousel carousel-horizontal carousel-start w-full overflow-x-hidden scroll-smooth">
 
                
@@ -306,8 +254,8 @@
                     <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
                         <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
                             <div class="space-y-4">
-                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿De cuánto es el depósito?</h1>
-                                <p class="max-w-xl text-base leading-7 text-base-content/60">Indica el monto del depósito en pesos mexicanos.</p>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál es el depósito y el contacto?</h1>
+                                <p class="max-w-xl text-base leading-7 text-base-content/60">Completa los datos de renta y contacto requeridos para registrar el departamento.</p>
                             </div>
 
                             <fieldset class="fieldset w-full max-w-xl gap-2">
@@ -320,9 +268,15 @@
                                 </label>
                             </fieldset>
 
+                            <fieldset class="fieldset w-full max-w-xl gap-2">
+                                <label class="label" for="contacto">Contacto</label>
+                                <input type="text" id="contacto" name="contacto" maxlength="100"
+                                    class="input input-lg w-full" placeholder="Teléfono o medio de contacto" required>
+                            </fieldset>
+
                             <div class="flex w-full max-w-xl flex-col gap-3">
                                 <div class="aura aura-silver">
-                                    <button type="submit" class="btn btn-primary btn-lg w-full">Guardar departamento</button>
+                                    <button type="button" class="btn btn-primary btn-lg w-full">Guardar departamento</button>
                                 </div>
                                 <div class="divider my-1 text-sm text-base-content/50">O</div>
                                 <a href="#paso-8" class="btn btn-secondary btn-lg w-full">Regresar</a>
