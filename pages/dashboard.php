@@ -40,7 +40,7 @@
             </a>
         </section>
 
-        <section class="grid items-start gap-5 xl:grid-cols-3">
+        <section class="grid gap-5 xl:grid-cols-3">
             <article class="card border border-base-300 bg-base-100 shadow-sm xl:col-span-2">
                 <div class="card-body gap-5 p-5 sm:p-6">
                     <div class="flex flex-wrap items-start justify-between gap-3">
@@ -48,7 +48,14 @@
                             <h2 class="card-title">Ocupación de inmuebles</h2>
                             <p class="text-sm text-base-content/60">Distribución por estado del departamento</p>
                         </div>
-                        <a href="./departamentos.php" class="btn btn-ghost btn-sm">Ver departamentos</a>
+                        <div class="tooltip tooltip-left" data-tip="Ver departamentos">
+                            <a href="./departamentos.php" class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Ver departamentos">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
 
                     <div class="grid gap-4 md:grid-cols-2">
@@ -160,7 +167,14 @@
                         </li>
                     </ul>
                     <div class="card-actions justify-end">
-                        <a href="#contratos" class="btn btn-ghost btn-sm">Ver contratos</a>
+                        <div class="tooltip tooltip-left" data-tip="Ver contratos">
+                            <a href="#contratos" class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Ver contratos">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                                    <circle cx="12" cy="12" r="3" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </article>
@@ -173,7 +187,14 @@
                         <h2 class="card-title">Pagos recientes</h2>
                         <p class="text-sm text-base-content/60">Movimientos de renta del periodo actual</p>
                     </div>
-                    <a href="#pagos" class="btn btn-ghost btn-sm">Ver todos</a>
+                    <div class="tooltip tooltip-left" data-tip="Ver todos los pagos">
+                        <a href="#pagos" class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Ver todos los pagos">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M8 6h13M8 12h13M8 18h13" />
+                                <path d="M3 6h.01M3 12h.01M3 18h.01" />
+                            </svg>
+                        </a>
+                    </div>
                 </div>
 
                 <div class="overflow-x-auto">
@@ -230,7 +251,14 @@
                             <h2 class="card-title">Mantenimiento</h2>
                             <p class="text-sm text-base-content/60">Reportes que requieren seguimiento</p>
                         </div>
-                        <a href="#mantenimiento" class="btn btn-ghost btn-sm">Ver reportes</a>
+                        <div class="tooltip tooltip-left" data-tip="Ver reportes">
+                            <a href="#mantenimiento" class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Ver reportes">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                    <path d="M8 6h13M8 12h13M8 18h13" />
+                                    <path d="M3 6h.01M3 12h.01M3 18h.01" />
+                                </svg>
+                            </a>
+                        </div>
                     </div>
 
                     <ul class="list">
@@ -298,7 +326,7 @@
 
     <footer class="app-footer footer footer-center p-4 text-sm">
         <aside>
-            <p>DepartamentosGPT · Panel de administración · Datos de demostración</p>
+            <p>DepartamentosGPT · Panel de administración</p>
         </aside>
     </footer>
 </body>

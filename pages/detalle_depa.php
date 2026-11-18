@@ -12,7 +12,6 @@ $d = [
     'contacto' => '55 1234 5678',
 ];
 
-// Las fotos no están en la tabla; por ahora van de ejemplo (luego pueden venir de otra tabla)
 $imagenes = [
     'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80',
     'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&w=1200&q=80',
@@ -68,10 +67,16 @@ $banos = rtrim(rtrim(number_format((float) $d['banos'], 1), '0'), '.'); // 1.5 -
 
                     <!-- Flechas -->
                     <div class="absolute left-3 right-3 top-1/2 flex -translate-y-1/2 justify-between">
-                        <button id="prev" class="tooltip btn btn-circle btn-sm" data-tip="Foto anterior"
-                            aria-label="Foto anterior" title="Foto anterior">❮</button>
-                        <button id="next" class="tooltip btn btn-circle btn-sm" data-tip="Foto siguiente"
-                            aria-label="Foto siguiente" title="Foto siguiente">❯</button>
+                        <button id="prev" class="tooltip inline-flex size-10 items-center justify-center text-base-content" data-tip="Foto anterior" aria-label="Foto anterior" title="Foto anterior">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m15 18-6-6 6-6" />
+                            </svg>
+                        </button>
+                        <button id="next" class="tooltip inline-flex size-10 items-center justify-center text-base-content" data-tip="Foto siguiente" aria-label="Foto siguiente" title="Foto siguiente">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
                     </div>
                 </div>
 
@@ -110,12 +115,6 @@ $banos = rtrim(rtrim(number_format((float) $d['banos'], 1), '0'), '.'); // 1.5 -
                     <?php if (!empty($d['descripcion'])): ?>
                         <p class="text-base-content/80"><?= nl2br(htmlspecialchars($d['descripcion'])) ?></p>
                     <?php endif; ?>
-
-                    <!-- Contacto -->
-                    <div class="mt-2 flex flex-wrap items-center gap-2">
-                        <button class="btn btn-primary">Agendar visita</button>
-                        <button class="btn btn-secondary">Contactar</button>
-                    </div>
                     <p class="text-sm text-base-content/60">
                         Contacto: <span
                             class="font-medium text-base-content"><?= htmlspecialchars($d['contacto']) ?></span>

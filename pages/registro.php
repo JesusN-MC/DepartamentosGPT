@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="shadcn">
+<html lang="es" data-theme="shadcn" class="scroll-pt-20">
 
 <head>
     <meta charset="UTF-8">

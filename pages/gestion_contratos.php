@@ -29,7 +29,12 @@
                 <h1 class="page-title">Gestión de contratos</h1>
                 <p class="page-description">Consulta los contratos y administra sus rentas.</p>
             </div>
-            <a href="./nuevo_contrato.php" class="btn btn-primary">Crear contrato</a>
+            <a href="./nuevo_contrato.php" class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14" />
+                </svg>
+                Crear contrato
+            </a>
         </section>
 
         <form class="surface-card filter-bar" method="get">
@@ -43,7 +48,12 @@
                     <option value="<?= $estado ?>"><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $estado))) ?></option>
                 <?php endforeach; ?>
             </select>
-            <button type="submit" class="btn btn-neutral">Filtrar</button>
+            <button type="submit" class="btn btn-neutral">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 5h16l-6.5 7.5V19l-3 1v-7.5L4 5Z" />
+                </svg>
+                Filtrar
+            </button>
         </form>
 
         <div class="surface-card data-table-wrap">
@@ -60,13 +70,21 @@
                             <td><?= date('d/m/Y', strtotime($contrato['fecha_inicio'])) ?> – <?= date('d/m/Y', strtotime($contrato['fecha_salida'])) ?></td>
                             <td>$<?= number_format($contrato['renta_mensual']) ?> MXN</td>
                             <td><span class="badge badge-soft <?= $contrato['estado'] === 'vigente' ? 'badge-success' : 'badge-warning' ?>"><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $contrato['estado']))) ?></span></td>
-                            <td class="text-right"><a class="btn btn-ghost btn-sm" href="./detalle_contrato.php?id=<?= (int) $contrato['id'] ?>&amp;vista=gestion">Gestionar</a></td>
+                            <td class="text-right">
+                                <div class="tooltip tooltip-left" data-tip="Gestionar contrato">
+                                    <a class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" href="./detalle_contrato_gestion.php?id=<?= (int) $contrato['id'] ?>" aria-label="Gestionar contrato">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
-        <p class="page-note">Datos de demostración hasta conectar la gestión con la base de datos.</p>
     </main>
 </body>
 
