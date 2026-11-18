@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="shadcn">
+<html lang="es" data-theme="shadcn" class="scroll-pt-20">
 
 <head>
     <meta charset="UTF-8">
@@ -254,8 +254,8 @@
                     <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
                         <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
                             <div class="space-y-4">
-                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál es el depósito y el contacto?</h1>
-                                <p class="max-w-xl text-base leading-7 text-base-content/60">Completa los datos de renta y contacto requeridos para registrar el departamento.</p>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál es el depósito?</h1>
+                                <p class="max-w-xl text-base leading-7 text-base-content/60">Indica el depósito requerido en pesos mexicanos.</p>
                             </div>
 
                             <fieldset class="fieldset w-full max-w-xl gap-2">
@@ -268,6 +268,25 @@
                                 </label>
                             </fieldset>
 
+                            <div class="flex w-full max-w-xl flex-col gap-3">
+                                <div class="aura aura-silver">
+                                    <a href="#paso-10" class="btn btn-primary btn-lg w-full">Continuar</a>
+                                </div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#paso-8" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="paso-10" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál es el contacto?</h1>
+                                <p class="max-w-xl text-base leading-7 text-base-content/60">Agrega el teléfono o medio de contacto asociado al departamento.</p>
+                            </div>
+
                             <fieldset class="fieldset w-full max-w-xl gap-2">
                                 <label class="label" for="contacto">Contacto</label>
                                 <input type="text" id="contacto" name="contacto" maxlength="100"
@@ -276,18 +295,19 @@
 
                             <div class="flex w-full max-w-xl flex-col gap-3">
                                 <div class="aura aura-silver">
-                                    <button type="button" class="btn btn-primary btn-lg w-full">Guardar departamento</button>
+                                    <button type="button" class="btn btn-primary btn-lg w-full">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M5 12l4 4L19 6" />
+                                        </svg>
+                                        Guardar departamento
+                                    </button>
                                 </div>
                                 <div class="divider my-1 text-sm text-base-content/50">O</div>
-                                <a href="#paso-8" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                                <a href="#paso-9" class="btn btn-secondary btn-lg w-full">Regresar</a>
                             </div>
                         </div>
                     </div>
-                    
                 </section>
-
-                
-                
             </div>
             
         </form>

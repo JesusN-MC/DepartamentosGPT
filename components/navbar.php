@@ -46,8 +46,8 @@ function layout(string $pantalla): void
                 <button type="button" class="tooltip tooltip-left btn btn-ghost btn-square"
                     data-tip="Cerrar sesión" aria-label="Cerrar sesión" title="Cerrar sesión"
                     onclick="logout_modal.showModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         aria-hidden="true">
                         <path d="M10 17l5-5-5-5" />
                         <path d="M15 12H3" />
@@ -84,15 +84,15 @@ function layout(string $pantalla): void
             <nav class="app-nav" aria-label="Navegación principal">
                 <a href="../pages/dashboard.php" class="app-nav-link ' . ($esPagina(["dashboard.php"]) ? "is-active" : "") . '">Dashboard</a>
                 <a href="../pages/gestion_departamentos.php" class="app-nav-link ' . ($esPagina(["gestion_departamentos.php", "nuevo_depa.php", "detalle_depa_gestion.php"]) ? "is-active" : "") . '">Departamentos</a>
-                <a href="../pages/gestion_contratos.php" class="app-nav-link ' . ($esPagina(["gestion_contratos.php", "nuevo_contrato.php", "detalle_contrato.php"]) ? "is-active" : "") . '">Contratos</a>
+                <a href="../pages/gestion_contratos.php" class="app-nav-link ' . ($esPagina(["gestion_contratos.php", "nuevo_contrato.php", "editar_contrato.php", "detalle_contrato_gestion.php", "pago_renta_gestion.php", "revision_pago.php", "cancelar_contrato.php"]) ? "is-active" : "") . '">Contratos</a>
                 <a href="../pages/gestion_usuarios.php" class="app-nav-link ' . ($esPagina(["gestion_usuarios.php"]) ? "is-active" : "") . '">Usuarios</a>
             </nav>
             <div class="navbar-end">
                 <button type="button" class="tooltip tooltip-left btn btn-ghost btn-square"
                     data-tip="Cerrar sesión" aria-label="Cerrar sesión" title="Cerrar sesión"
                     onclick="logout_modal.showModal()">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none"
-                        stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
                         aria-hidden="true">
                         <path d="M10 17l5-5-5-5" />
                         <path d="M15 12H3" />

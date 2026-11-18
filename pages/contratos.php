@@ -50,13 +50,21 @@
                                     <span class="badge badge-soft badge-warning">Pendiente de firma</span>
                                 <?php endif; ?>
                             </td>
-                            <td class="text-right"><a class="btn btn-ghost btn-sm" href="./detalle_contrato.php?id=<?= (int) $contrato['id'] ?>">Ver contrato</a></td>
+                            <td class="text-right">
+                                <div class="tooltip tooltip-left" data-tip="Ver contrato">
+                                    <a class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" href="./detalle_contrato.php?id=<?= (int) $contrato['id'] ?>" aria-label="Ver contrato">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </a>
+                                </div>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
-        <p class="page-note">Datos de demostración hasta conectar la vista con la base de datos.</p>
     </main>
 </body>
 

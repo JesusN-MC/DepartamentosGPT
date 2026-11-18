@@ -34,7 +34,7 @@
         'fecha_registro' => '2025-09-10',
     ];
     $imagenes = [
-        ['id' => 1, 'ruta' => 'assets/images/departamento-302-1.jpg', 'fecha_registro' => '2025-09-10'],
+        ['id' => 1, 'ruta' => 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&w=1200&q=80', 'fecha_registro' => '2025-09-10'],
     ];
     $mantenimientos = [
         ['id' => 1, 'id_usuario_registro' => 2, 'titulo' => 'Fuga bajo el lavabo', 'descripcion' => 'Revisar conexión de agua del baño.', 'fecha_reporte' => '2026-11-10', 'fecha_inicio' => '2026-11-12', 'fecha_finalizacion' => '', 'estado' => 'en_proceso', 'responsable' => 'Técnico de mantenimiento', 'costo' => 850, 'observaciones' => 'Acceso coordinado con el inquilino.', 'fecha_registro' => '2026-11-10'],
@@ -56,94 +56,85 @@
             <div class="section-heading">
                 <div>
                     <h2 class="section-title">Datos del departamento</h2>
-                    <p class="section-description">Actualiza los campos que pertenecen al registro del inmueble.</p>
+                    <p class="section-description">Información registrada para este inmueble.</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <a href="./editar_depa.php?id=<?= (int) $departamento['id'] ?>" class="btn btn-primary btn-sm">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="m16 4 4 4L8 20H4v-4L16 4Z" />
+                            <path d="m14 6 4 4" />
+                        </svg>
+                        Editar datos
+                    </a>
+                    <div class="tooltip tooltip-left" data-tip="Eliminar departamento">
+                        <button type="button" class="inline-flex size-10 items-center justify-center rounded-md text-error transition-transform hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error" aria-label="Eliminar departamento">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 6h18" />
+                                <path d="M8 6V4h8v2" />
+                                <path d="m19 6-1 14H6L5 6" />
+                                <path d="M10 11v5" />
+                                <path d="M14 11v5" />
+                            </svg>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <form class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                <label class="fieldset">
-                    <span class="label">Número o clave</span>
-                    <input class="input w-full" name="nombre_numero" maxlength="50" value="<?= htmlspecialchars($departamento['nombre_numero']) ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Edificio</span>
-                    <input class="input w-full" name="edificio" maxlength="100" value="<?= htmlspecialchars($departamento['edificio']) ?>" required>
-                </label>
-                <label class="fieldset sm:col-span-2 lg:col-span-1">
-                    <span class="label">Dirección</span>
-                    <input class="input w-full" name="direccion" maxlength="255" value="<?= htmlspecialchars($departamento['direccion']) ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Piso</span>
-                    <input class="input w-full" name="piso" maxlength="20" value="<?= htmlspecialchars($departamento['piso']) ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Habitaciones</span>
-                    <input class="input w-full" type="number" name="habitaciones" min="0" max="255" value="<?= (int) $departamento['habitaciones'] ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Baños</span>
-                    <input class="input w-full" type="number" name="banos" min="0" max="99.9" step="0.5" value="<?= htmlspecialchars((string) $departamento['banos']) ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Precio de renta</span>
-                    <input class="input w-full" type="number" name="precio_renta" min="0" step="0.01" value="<?= (int) $departamento['precio_renta'] ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Depósito</span>
-                    <input class="input w-full" type="number" name="deposito" min="0" step="0.01" value="<?= (int) $departamento['deposito'] ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Contacto</span>
-                    <input class="input w-full" name="contacto" maxlength="100" value="<?= htmlspecialchars($departamento['contacto']) ?>" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Estado</span>
-                    <select class="select w-full" name="estado">
-                        <option <?= $departamento['estado'] === 'Disponible' ? 'selected' : '' ?>>Disponible</option>
-                        <option <?= $departamento['estado'] === 'En renta' ? 'selected' : '' ?>>En renta</option>
-                        <option <?= $departamento['estado'] === 'En Mantenimiento' ? 'selected' : '' ?>>En Mantenimiento</option>
-                    </select>
-                </label>
-                <div class="fieldset">
-                    <span class="label">Fecha de registro</span>
-                    <p class="input flex items-center"><?= date('d/m/Y', strtotime($departamento['fecha_registro'])) ?></p>
-                </div>
-                <label class="fieldset sm:col-span-2 lg:col-span-3">
-                    <span class="label">Descripción</span>
-                    <textarea class="textarea w-full" name="descripcion" rows="3"><?= htmlspecialchars($departamento['descripcion']) ?></textarea>
-                </label>
-                <div class="flex flex-wrap justify-between gap-3 sm:col-span-2 lg:col-span-3">
-                    <button type="button" class="btn btn-ghost text-error">Eliminar departamento</button>
-                    <button type="button" class="btn btn-primary">Guardar cambios</button>
-                </div>
-            </form>
+            <dl class="detail-grid">
+                <div class="detail-item"><dt>Número o clave</dt><dd><?= htmlspecialchars($departamento['nombre_numero']) ?></dd></div>
+                <div class="detail-item"><dt>Edificio</dt><dd><?= htmlspecialchars($departamento['edificio']) ?></dd></div>
+                <div class="detail-item"><dt>Dirección</dt><dd><?= htmlspecialchars($departamento['direccion']) ?></dd></div>
+                <div class="detail-item"><dt>Piso</dt><dd><?= htmlspecialchars($departamento['piso']) ?></dd></div>
+                <div class="detail-item"><dt>Habitaciones</dt><dd><?= (int) $departamento['habitaciones'] ?></dd></div>
+                <div class="detail-item"><dt>Baños</dt><dd><?= htmlspecialchars((string) $departamento['banos']) ?></dd></div>
+                <div class="detail-item"><dt>Precio de renta</dt><dd>$<?= number_format((float) $departamento['precio_renta'], 2) ?></dd></div>
+                <div class="detail-item"><dt>Depósito</dt><dd>$<?= number_format((float) $departamento['deposito'], 2) ?></dd></div>
+                <div class="detail-item"><dt>Contacto</dt><dd><?= htmlspecialchars($departamento['contacto']) ?></dd></div>
+                <div class="detail-item"><dt>Estado</dt><dd><?= htmlspecialchars($departamento['estado']) ?></dd></div>
+                <div class="detail-item"><dt>Fecha de registro</dt><dd><?= date('d/m/Y', strtotime($departamento['fecha_registro'])) ?></dd></div>
+                <div class="detail-item sm:col-span-2 lg:col-span-3"><dt>Descripción</dt><dd><?= htmlspecialchars($departamento['descripcion']) ?></dd></div>
+            </dl>
         </section>
 
         <section class="surface-card section-card">
             <div class="section-heading">
                 <div>
                     <h2 class="section-title">Imágenes del departamento</h2>
-                    <p class="section-description">Cada imagen se guarda con una ruta y el departamento relacionado.</p>
+                    <p class="section-description">Imágenes registradas para este inmueble.</p>
                 </div>
+                <a href="./agregar_imagen_depa.php?id_departamento=<?= (int) $departamento['id'] ?>" class="btn btn-primary btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <rect width="18" height="18" x="3" y="3" rx="2" />
+                        <circle cx="9" cy="9" r="2" />
+                        <path d="m21 15-3.1-3.1a2 2 0 0 0-2.8 0L9 18" />
+                        <path d="M12 12v6M9 15h6" />
+                    </svg>
+                    Agregar imagen
+                </a>
             </div>
-            <form class="mb-4 flex flex-wrap items-end gap-3">
-                <input type="hidden" name="id_departamento" value="<?= (int) $departamento['id'] ?>">
-                <label class="fieldset min-w-64 flex-1">
-                    <span class="label">Ruta de imagen</span>
-                    <input class="input w-full" name="ruta" maxlength="500" required>
-                </label>
-                <button type="button" class="btn btn-primary">Agregar imagen</button>
-            </form>
             <div class="data-table-wrap">
                 <table class="table table-zebra">
-                    <thead><tr><th>ID</th><th>Ruta</th><th>Fecha de registro</th><th></th></tr></thead>
+                    <thead><tr><th>ID</th><th>Vista previa</th><th>Fecha de registro</th><th></th></tr></thead>
                     <tbody>
                         <?php foreach ($imagenes as $imagen): ?>
                             <tr>
                                 <td><?= (int) $imagen['id'] ?></td>
-                                <td><?= htmlspecialchars($imagen['ruta']) ?></td>
+                                <td>
+                                    <img src="<?= htmlspecialchars($imagen['ruta']) ?>" alt="Imagen del departamento <?= htmlspecialchars($departamento['nombre_numero']) ?>" class="h-16 w-24 rounded-md border border-base-300 object-cover" loading="lazy">
+                                </td>
                                 <td><?= date('d/m/Y', strtotime($imagen['fecha_registro'])) ?></td>
-                                <td class="text-right"><button type="button" class="btn btn-ghost btn-sm text-error">Eliminar</button></td>
+                                <td class="text-right">
+                                    <div class="tooltip tooltip-left" data-tip="Eliminar imagen">
+                                        <button type="button" class="inline-flex size-10 items-center justify-center rounded-md text-error transition-transform hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error" aria-label="Eliminar imagen">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M3 6h18" />
+                                                <path d="M8 6V4h8v2" />
+                                                <path d="m19 6-1 14H6L5 6" />
+                                                <path d="M10 11v5" />
+                                                <path d="M14 11v5" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
@@ -155,55 +146,15 @@
             <div class="section-heading">
                 <div>
                     <h2 class="section-title">Mantenimientos</h2>
-                    <p class="section-description">Registra reportes y actualiza su estado de seguimiento.</p>
+                    <p class="section-description">Consulta los reportes y accede a sus formularios en pantallas independientes.</p>
                 </div>
+                <a href="./nuevo_mantenimiento.php?id_departamento=<?= (int) $departamento['id'] ?>" class="btn btn-primary btn-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 5v14M5 12h14" />
+                    </svg>
+                    Registrar mantenimiento
+                </a>
             </div>
-
-            <form class="mb-6 grid gap-4 rounded-box border border-base-300 bg-base-200/60 p-4 sm:grid-cols-2 lg:grid-cols-3">
-                <input type="hidden" name="id_departamento" value="<?= (int) $departamento['id'] ?>">
-                <label class="fieldset">
-                    <span class="label">Usuario que registra</span>
-                    <select class="select w-full" name="id_usuario_registro" required>
-                        <option value="">Selecciona un usuario</option>
-                        <option value="1">Usuario ID 1</option>
-                    </select>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Título</span>
-                    <input class="input w-full" name="titulo" maxlength="150" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Fecha del reporte</span>
-                    <input class="input w-full" type="datetime-local" name="fecha_reporte" required>
-                </label>
-                <label class="fieldset">
-                    <span class="label">Responsable</span>
-                    <input class="input w-full" name="responsable" maxlength="150">
-                </label>
-                <label class="fieldset">
-                    <span class="label">Fecha de inicio</span>
-                    <input class="input w-full" type="datetime-local" name="fecha_inicio">
-                </label>
-                <label class="fieldset">
-                    <span class="label">Fecha de finalización</span>
-                    <input class="input w-full" type="datetime-local" name="fecha_finalizacion">
-                </label>
-                <label class="fieldset">
-                    <span class="label">Costo</span>
-                    <input class="input w-full" type="number" name="costo" min="0" step="0.01">
-                </label>
-                <label class="fieldset sm:col-span-2 lg:col-span-3">
-                    <span class="label">Descripción</span>
-                    <textarea class="textarea w-full" name="descripcion" rows="2" required></textarea>
-                </label>
-                <label class="fieldset sm:col-span-2 lg:col-span-3">
-                    <span class="label">Observaciones</span>
-                    <textarea class="textarea w-full" name="observaciones" rows="2"></textarea>
-                </label>
-                <div class="flex justify-end sm:col-span-2 lg:col-span-3">
-                    <button type="button" class="btn btn-primary">Registrar mantenimiento</button>
-                </div>
-            </form>
 
             <div class="data-table-wrap">
                 <table class="table table-zebra">
@@ -223,21 +174,29 @@
                                     Fin: <?= htmlspecialchars($mantenimiento['fecha_finalizacion'] ?: 'Pendiente') ?>
                                 </td>
                                 <td><?= htmlspecialchars($mantenimiento['responsable'] ?: 'Sin asignar') ?><br>$<?= number_format((float) $mantenimiento['costo'], 2) ?></td>
-                                <td>
-                                    <form class="flex items-center gap-2">
-                                        <input type="hidden" name="id" value="<?= (int) $mantenimiento['id'] ?>">
-                                        <select class="select select-sm" name="estado" aria-label="Estado del mantenimiento">
-                                            <?php foreach (['pendiente', 'programado', 'en_proceso', 'finalizado', 'cancelado'] as $estado): ?>
-                                                <option value="<?= $estado ?>" <?= $mantenimiento['estado'] === $estado ? 'selected' : '' ?>><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $estado))) ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </form>
-                                </td>
+                                <td><span class="badge badge-soft badge-info"><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $mantenimiento['estado']))) ?></span></td>
                                 <td class="text-sm"><?= date('d/m/Y', strtotime($mantenimiento['fecha_registro'])) ?><br>Usuario ID <?= (int) $mantenimiento['id_usuario_registro'] ?></td>
                                 <td>
-                                    <div class="flex gap-2">
-                                        <button type="button" class="btn btn-outline btn-sm">Actualizar</button>
-                                        <button type="button" class="btn btn-ghost btn-sm text-error">Eliminar</button>
+                                    <div class="flex justify-end gap-2">
+                                        <div class="tooltip tooltip-left" data-tip="Actualizar mantenimiento">
+                                            <a href="./actualizar_mantenimiento.php?id=<?= (int) $mantenimiento['id'] ?>&amp;id_departamento=<?= (int) $departamento['id'] ?>" class="inline-flex size-10 items-center justify-center rounded-md text-base-content transition-transform hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Actualizar mantenimiento">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="m16 4 4 4L8 20H4v-4L16 4Z" />
+                                                    <path d="m14 6 4 4" />
+                                                </svg>
+                                            </a>
+                                        </div>
+                                        <div class="tooltip tooltip-left" data-tip="Eliminar mantenimiento">
+                                            <button type="button" class="inline-flex size-10 items-center justify-center rounded-md text-error transition-transform hover:scale-110 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error" aria-label="Eliminar mantenimiento">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-7" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="M3 6h18" />
+                                                    <path d="M8 6V4h8v2" />
+                                                    <path d="m19 6-1 14H6L5 6" />
+                                                    <path d="M10 11v5" />
+                                                    <path d="M14 11v5" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     </div>
                                 </td>
                             </tr>
@@ -245,7 +204,6 @@
                     </tbody>
                 </table>
             </div>
-            <p class="page-note">Vista de demostración. Las acciones aún no están conectadas a la base de datos.</p>
         </section>
     </main>
 </body>

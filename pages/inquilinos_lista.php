@@ -80,7 +80,13 @@ $inquilinos = [
                 <option value="0">Inactivos</option>
             </select>
 
-            <button type="submit" class="btn btn-neutral">Buscar</button>
+            <button type="submit" class="btn btn-neutral">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="7" />
+                    <path d="m20 20-4-4" />
+                </svg>
+                Buscar
+            </button>
         </form>
 
         <!-- Tabla -->
@@ -127,8 +133,15 @@ $inquilinos = [
                                 <?php endif; ?>
                             </td>
                             <td class="text-right">
-                                <a href="./detalle_inquilino.php?id=<?= (int) $u['id'] ?>"
-                                    class="btn btn-ghost btn-sm">Ver</a>
+                                <div class="tooltip tooltip-left" data-tip="Ver inquilino">
+                                    <a href="./detalle_inquilino.php?id=<?= (int) $u['id'] ?>"
+                                        class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Ver inquilino">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -140,9 +153,9 @@ $inquilinos = [
         <div class="mt-4 flex flex-wrap items-center justify-between gap-3">
             <p class="text-sm text-base-content/60">Mostrando 1–<?= count($inquilinos) ?> de <?= count($inquilinos) ?></p>
             <nav class="join" aria-label="Paginación de inquilinos">
-                <button class="btn btn-sm join-item" disabled>‹</button>
+                <button class="tooltip btn btn-sm btn-square join-item" data-tip="Página anterior" aria-label="Página anterior" disabled>‹</button>
                 <button class="btn btn-sm btn-neutral join-item" aria-current="page">1</button>
-                <button class="btn btn-sm join-item" disabled>›</button>
+                <button class="tooltip btn btn-sm btn-square join-item" data-tip="Página siguiente" aria-label="Página siguiente" disabled>›</button>
             </nav>
         </div>
     </main>

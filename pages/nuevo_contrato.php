@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="shadcn">
+<html lang="es" data-theme="shadcn" class="scroll-pt-20">
 
 <head>
     <meta charset="UTF-8">
@@ -16,114 +16,293 @@
 <body class="bg-base-200 font-[family-name:Inter,sans-serif]">
     <?php include '../components/navbar.php'; layout('r-2'); ?>
 
-    <main class="app-page">
-        <section class="page-heading">
-            <div>
-                <a href="./gestion_contratos.php" class="link link-hover text-sm">← Gestión de contratos</a>
-                <h1 class="page-title mt-2">Crear contrato</h1>
-                <p class="page-description">Captura los campos definidos para el contrato.</p>
-            </div>
-        </section>
-
-        <form class="surface-card grid gap-6 p-5 sm:p-6">
-            <section class="form-section">
-                <div class="form-section-heading">
-                    <h2 class="section-title">Partes del contrato</h2>
-                    <p class="section-description">Asocia el inmueble y el inquilino al folio.</p>
-                </div>
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <label class="fieldset">
-                        <span class="label">Folio</span>
-                        <input class="input w-full" name="folio" maxlength="30" required>
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Departamento</span>
-                        <select class="select w-full" name="id_departamento" required>
-                            <option value="">Selecciona un departamento</option>
-                            <option value="1">Edificio Olmo · 302</option>
-                            <option value="2">Edificio del Parque · 204</option>
-                            <option value="3">Edificio Alameda · 105</option>
-                        </select>
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Inquilino</span>
-                        <select class="select w-full" name="id_inquilino" required>
-                            <option value="">Selecciona un usuario</option>
-                            <option value="2">Usuario ID 2</option>
-                            <option value="3">Usuario ID 3</option>
-                        </select>
-                    </label>
-                </div>
-            </section>
-
-            <section class="form-section">
-                <div class="form-section-heading">
-                    <h2 class="section-title">Vigencia y pagos</h2>
-                    <p class="section-description">Define las fechas y cantidades acordadas.</p>
-                </div>
-                <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                    <label class="fieldset">
-                        <span class="label">Fecha de inicio</span>
-                        <input class="input w-full" type="date" name="fecha_inicio" required>
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Duración (meses)</span>
-                        <input class="input w-full" type="number" name="cantidad_meses" min="1" required>
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Fecha de salida (opcional)</span>
-                        <input class="input w-full" type="date" name="fecha_salida">
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Renta mensual</span>
-                        <input class="input w-full" type="number" name="renta_mensual" min="0" step="0.01" required>
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Día de pago</span>
-                        <input class="input w-full" type="number" name="dia_pago" min="1" max="31" required>
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Depósito</span>
-                        <input class="input w-full" type="number" name="deposito" min="0" step="0.01" required>
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Fecha de firma</span>
-                        <input class="input w-full" type="date" name="fecha_firma">
-                    </label>
-                    <label class="fieldset">
-                        <span class="label">Estado</span>
-                        <select class="select w-full" name="estado" required>
-                            <?php foreach (['borrador', 'pendiente_firma', 'vigente', 'vencido', 'terminado', 'cancelado'] as $estado): ?>
-                                <option value="<?= $estado ?>"><?= htmlspecialchars(ucfirst(str_replace('_', ' ', $estado))) ?></option>
-                            <?php endforeach; ?>
-                        </select>
-                    </label>
-                </div>
-            </section>
-
-            <section class="form-section">
-                <div class="form-section-heading">
-                    <h2 class="section-title">Documento y notas</h2>
-                    <p class="section-description">Estos campos son opcionales.</p>
-                </div>
-                <div class="grid gap-4 sm:grid-cols-2">
-                    <label class="fieldset">
-                        <span class="label">Ruta del archivo</span>
-                        <input class="input w-full" name="ruta_archivo" maxlength="500">
-                    </label>
-                    <label class="fieldset sm:col-span-2">
-                        <span class="label">Observaciones</span>
-                        <textarea class="textarea w-full" name="observaciones" rows="3"></textarea>
-                    </label>
-                </div>
-            </section>
-
-            <div class="flex flex-wrap justify-end gap-3">
-                <a href="./gestion_contratos.php" class="btn btn-ghost">Cancelar</a>
-                <button type="button" class="btn btn-primary">Guardar contrato</button>
+    <main class="flex min-h-[90vh] flex-col bg-base-200">
+        <form class="flex flex-1 flex-col" method="post" enctype="multipart/form-data">
+            <div class="carousel carousel-horizontal carousel-start w-full scroll-smooth">
+                <section id="contrato-paso-1" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 1 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál es el folio del contrato?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Escribe el identificador de este acuerdo.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="folio">Folio</label>
+                                <input id="folio" class="input input-lg w-full" name="folio" maxlength="30" required>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-2" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="./gestion_contratos.php" class="btn btn-secondary btn-lg w-full">Cancelar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-2" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 2 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Qué departamento se rentará?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Selecciona el inmueble asociado al contrato.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="id_departamento">Departamento</label>
+                                <select id="id_departamento" class="select select-lg w-full" name="id_departamento" required>
+                                    <option value="">Selecciona un departamento</option>
+                                    <option value="1">Edificio Olmo · 302</option>
+                                    <option value="2">Edificio del Parque · 204</option>
+                                    <option value="3">Edificio Alameda · 105</option>
+                                </select>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-3" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-1" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-3" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 3 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Quién será el inquilino?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Selecciona al usuario que firmará el contrato.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="id_inquilino">Inquilino</label>
+                                <select id="id_inquilino" class="select select-lg w-full" name="id_inquilino" required>
+                                    <option value="">Selecciona un usuario</option>
+                                    <option value="2">Usuario ID 2</option>
+                                    <option value="3">Usuario ID 3</option>
+                                </select>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-4" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-2" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-4" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 4 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuándo inicia el contrato?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Indica la fecha de inicio acordada.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="fecha_inicio">Fecha de inicio</label>
+                                <input id="fecha_inicio" class="input input-lg w-full" type="date" name="fecha_inicio" required>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-5" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-3" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-5" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 5 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuántos meses durará?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Indica la duración total acordada.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="cantidad_meses">Duración (meses)</label>
+                                <input id="cantidad_meses" class="input input-lg w-full" type="number" name="cantidad_meses" min="1" required>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-6" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-4" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-6" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 6 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál es la fecha de salida?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Este dato es opcional si aún no se define.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="fecha_salida">Fecha de salida (opcional)</label>
+                                <input id="fecha_salida" class="input input-lg w-full" type="date" name="fecha_salida">
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-7" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-5" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-7" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 7 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál será la renta mensual?</h1>
+                                <p class="text-base leading-7 text-base-content/60">El monto corresponde a una renta completa.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="renta_mensual">Renta mensual</label>
+                                <input id="renta_mensual" class="input input-lg w-full" type="number" name="renta_mensual" min="0" step="0.01" required>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-8" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-6" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-8" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 8 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Qué día vence la renta?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Elige el día del mes para realizar el pago.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="dia_pago">Día de pago</label>
+                                <input id="dia_pago" class="input input-lg w-full" type="number" name="dia_pago" min="1" max="31" required>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-9" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-7" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-9" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 9 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál será el depósito?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Indica el monto acordado para el depósito.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="deposito">Depósito</label>
+                                <input id="deposito" class="input input-lg w-full" type="number" name="deposito" min="0" step="0.01" required>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-10" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-8" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-10" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 10 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuándo se firmó el contrato?</h1>
+                                <p class="text-base leading-7 text-base-content/60">La fecha de firma es opcional.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="fecha_firma">Fecha de firma (opcional)</label>
+                                <input id="fecha_firma" class="input input-lg w-full" type="date" name="fecha_firma">
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-11" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-9" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-11" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 11 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Cuál es el estado del contrato?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Selecciona el estado inicial del registro.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="estado">Estado</label>
+                                <select id="estado" class="select select-lg w-full" name="estado" required>
+                                    <option value="">Selecciona un estado</option>
+                                    <option value="borrador">Borrador</option>
+                                    <option value="pendiente_firma">Pendiente de firma</option>
+                                    <option value="vigente">Vigente</option>
+                                    <option value="vencido">Vencido</option>
+                                    <option value="terminado">Terminado</option>
+                                    <option value="cancelado">Cancelado</option>
+                                </select>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-12" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-10" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-12" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 12 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Qué documento deseas adjuntar?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Adjunta el contrato firmado si ya está disponible. Este campo es opcional.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="archivo_contrato">Documento del contrato (opcional)</label>
+                                <input id="archivo_contrato" class="file-input file-input-lg w-full" type="file" name="archivo_contrato" accept=".pdf,.doc,.docx">
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><a href="#contrato-paso-13" class="btn btn-primary btn-lg w-full">Continuar</a></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-11" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <section id="contrato-paso-13" class="carousel-item w-full shrink-0">
+                    <div class="mx-auto flex min-h-[80vh] w-full max-w-5xl flex-col px-6 pb-8">
+                        <div class="mx-auto flex w-full max-w-[460px] flex-1 flex-col justify-center gap-8 py-12">
+                            <div class="space-y-4">
+                                <span class="badge badge-ghost">Paso 13 de 13</span>
+                                <h1 class="text-4xl tracking-tight sm:text-6xl">¿Deseas agregar observaciones?</h1>
+                                <p class="text-base leading-7 text-base-content/60">Este campo es opcional.</p>
+                            </div>
+                            <fieldset class="fieldset w-full gap-2">
+                                <label class="label" for="observaciones">Observaciones</label>
+                                <textarea id="observaciones" class="textarea textarea-lg w-full" name="observaciones" rows="4"></textarea>
+                            </fieldset>
+                            <div class="flex w-full flex-col gap-3">
+                                <div class="aura aura-silver"><button type="button" class="btn btn-primary btn-lg w-full">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                        <path d="M5 12l4 4L19 6" />
+                                    </svg>
+                                    Guardar contrato
+                                </button></div>
+                                <div class="divider my-1 text-sm text-base-content/50">O</div>
+                                <a href="#contrato-paso-12" class="btn btn-secondary btn-lg w-full">Regresar</a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
             </div>
         </form>
-        <p class="page-note">Formulario de interfaz. Aún no guarda información en la base de datos.</p>
     </main>
 </body>
 

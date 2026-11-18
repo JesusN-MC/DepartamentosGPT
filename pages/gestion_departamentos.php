@@ -32,9 +32,9 @@
                 <p class="page-description">Consulta, registra y actualiza los inmuebles.</p>
             </div>
             <a href="./nuevo_depa.php" class="btn btn-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-4" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M12 5v14M5 12h14" />
+                </svg>
                 Registrar departamento
             </a>
         </section>
@@ -42,9 +42,10 @@
         <form class="surface-card filter-bar" method="get">
             <label class="input min-w-56 flex-1 items-center gap-2">
                 <span class="sr-only">Buscar departamento</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-4 opacity-60" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    aria-hidden="true"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                </svg>
                 <input type="search" name="q" class="grow" placeholder="Edificio, número o dirección">
             </label>
             <select name="estado" class="select w-48" aria-label="Filtrar por estado">
@@ -53,7 +54,12 @@
                 <option>En renta</option>
                 <option>En Mantenimiento</option>
             </select>
-            <button type="submit" class="btn btn-neutral">Filtrar</button>
+            <button type="submit" class="btn btn-neutral">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 5h16l-6.5 7.5V19l-3 1v-7.5L4 5Z" />
+                </svg>
+                Filtrar
+            </button>
         </form>
 
         <div class="surface-card data-table-wrap">
@@ -88,14 +94,20 @@
                                 <?php endif; ?>
                             </td>
                             <td class="text-right">
-                                <a class="btn btn-ghost btn-sm" href="./detalle_depa_gestion.php?id=<?= (int) $departamento['id'] ?>">Gestionar</a>
+                                <div class="tooltip tooltip-left" data-tip="Gestionar departamento">
+                                    <a class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" href="./detalle_depa_gestion.php?id=<?= (int) $departamento['id'] ?>" aria-label="Gestionar departamento">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                            <path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7-10-7-10-7Z" />
+                                            <circle cx="12" cy="12" r="3" />
+                                        </svg>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
         </div>
-        <p class="page-note">Datos de demostración hasta conectar la gestión con la base de datos.</p>
     </main>
 </body>
 

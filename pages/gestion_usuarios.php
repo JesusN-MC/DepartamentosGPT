@@ -18,10 +18,12 @@
     include '../components/navbar.php';
     layout('r-2');
 
+    $nombresRol = [1 => 'Arrendatario', 2 => 'Arrendador'];
     $usuarios = [
         ['id' => 1, 'nombre' => 'Ana Torres', 'correo' => 'ana.torres@correo.com', 'rol' => 2, 'estado' => 1, 'fecha_registro' => '2026-09-12'],
         ['id' => 2, 'nombre' => 'Luis Fernández', 'correo' => 'luis.fernandez@correo.com', 'rol' => 3, 'estado' => 1, 'fecha_registro' => '2026-09-20'],
         ['id' => 3, 'nombre' => 'María López', 'correo' => 'maria.lopez@correo.com', 'rol' => 3, 'estado' => 0, 'fecha_registro' => '2026-10-02'],
+        ['id' => 4, 'nombre' => 'Carlos Ramírez', 'correo' => 'carlos.ramirez@correo.com', 'rol' => 1, 'estado' => 1, 'fecha_registro' => '2026-10-11'],
     ];
     ?>
 
@@ -36,9 +38,10 @@
         <form class="surface-card filter-bar" method="get">
             <label class="input min-w-56 flex-1 items-center gap-2">
                 <span class="sr-only">Buscar usuario</span>
-                <svg xmlns="http://www.w3.org/2000/svg" class="size-4 opacity-60" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    aria-hidden="true"><circle cx="11" cy="11" r="8" /><path d="m21 21-4.3-4.3" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-5 opacity-60" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <circle cx="11" cy="11" r="8" />
+                    <path d="m21 21-4.3-4.3" />
+                </svg>
                 <input type="search" name="q" class="grow" placeholder="Nombre o correo">
             </label>
             <select name="estado" class="select w-44" aria-label="Filtrar por estado de cuenta">
@@ -46,7 +49,12 @@
                 <option value="1">Activos</option>
                 <option value="0">Desactivados</option>
             </select>
-            <button type="submit" class="btn btn-neutral">Filtrar</button>
+            <button type="submit" class="btn btn-neutral">
+                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <path d="M4 5h16l-6.5 7.5V19l-3 1v-7.5L4 5Z" />
+                </svg>
+                Filtrar
+            </button>
         </form>
 
         <div class="surface-card data-table-wrap">
@@ -57,17 +65,25 @@
                         <th>Rol</th>
                         <th>Registro</th>
                         <th>Acceso</th>
-                        <th class="text-right">Acciones</th>
+                        <th class="text-right">Administrar</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php foreach ($usuarios as $usuario): ?>
                         <tr>
+                            <?php
+                            $rolActual = (int) $usuario['rol'];
+                            $nombreRolSuperior = $nombresRol[$rolActual + 1] ?? 'Rol ' . ($rolActual + 1);
+                            $nombreRolInferior = $nombresRol[$rolActual - 1] ?? 'Rol ' . ($rolActual - 1);
+                            ?>
                             <td>
                                 <div class="font-semibold"><?= htmlspecialchars($usuario['nombre']) ?></div>
                                 <div class="text-sm text-base-content/60"><?= htmlspecialchars($usuario['correo']) ?></div>
                             </td>
-                            <td><span class="badge badge-soft">Rol <?= (int) $usuario['rol'] ?></span></td>
+                            <td>
+                                <?php $nombreRol = $nombresRol[$rolActual] ?? 'Rol ' . $rolActual; ?>
+                                <span class="badge badge-soft"><?= htmlspecialchars($nombreRol) ?></span>
+                            </td>
                             <td><?= date('d/m/Y', strtotime($usuario['fecha_registro'])) ?></td>
                             <td>
                                 <?php if ($usuario['estado'] === 1): ?>
@@ -77,13 +93,59 @@
                                 <?php endif; ?>
                             </td>
                             <td>
-                                <div class="flex justify-end gap-2">
-                                    <?php if ($usuario['estado'] === 1): ?>
-                                        <button type="button" class="btn btn-outline btn-sm">Desactivar acceso</button>
-                                    <?php else: ?>
-                                        <span class="btn btn-ghost btn-sm btn-disabled">Acceso desactivado</span>
+                                <div class="flex flex-wrap justify-end gap-2">
+                                    <?php if ($rolActual < 3): ?>
+                                        <div class="tooltip tooltip-left" data-tip="Ascender a <?= htmlspecialchars($nombreRolSuperior) ?>">
+                                            <button type="button" class="inline-flex size-10 items-center justify-center text-primary transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="Ascender a <?= htmlspecialchars($nombreRolSuperior) ?>">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="M12 19V5" />
+                                                    <path d="m5 12 7-7 7 7" />
+                                                </svg>
+                                            </button>
+                                        </div>
                                     <?php endif; ?>
-                                    <button type="button" class="btn btn-ghost btn-sm text-error">Eliminar</button>
+                                    <?php if ($rolActual > 1): ?>
+                                        <div class="tooltip tooltip-left" data-tip="Descender a <?= htmlspecialchars($nombreRolInferior) ?>">
+                                            <button type="button" class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Descender a <?= htmlspecialchars($nombreRolInferior) ?>">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="M12 5v14" />
+                                                    <path d="m19 12-7 7-7-7" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
+                                    <?php if ($usuario['estado'] === 1): ?>
+                                        <div class="tooltip tooltip-left" data-tip="Desactivar acceso">
+                                            <button type="button" class="inline-flex size-10 items-center justify-center text-warning transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warning" aria-label="Desactivar acceso">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                    <circle cx="12" cy="12" r="10" />
+                                                    <path d="m15 9-6 6" />
+                                                    <path d="m9 9 6 6" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="tooltip tooltip-left" data-tip="Reactivar acceso">
+                                            <button type="button" class="inline-flex size-10 items-center justify-center text-success transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-success" aria-label="Reactivar acceso">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                    <path d="M16 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                                                    <circle cx="10" cy="7" r="4" />
+                                                    <path d="m16 11 2 2 4-4" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="tooltip tooltip-left" data-tip="Eliminar usuario">
+                                        <button type="button" class="inline-flex size-10 items-center justify-center text-error transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-error" aria-label="Eliminar usuario">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M3 6h18" />
+                                                <path d="M8 6V4h8v2" />
+                                                <path d="m19 6-1 14H6L5 6" />
+                                                <path d="M10 11v5" />
+                                                <path d="M14 11v5" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                 </div>
                             </td>
                         </tr>
@@ -91,7 +153,6 @@
                 </tbody>
             </table>
         </div>
-        <p class="page-note">Los roles se muestran con el valor almacenado (1, 2 o 3); la base no define sus nombres.</p>
     </main>
 </body>
 

@@ -24,7 +24,6 @@
             <a class="btn btn-ghost text-xl" href="index.php">DepartamentosGPT</a>
         </div>
         <nav class="navbar-center hidden items-center gap-1 lg:flex" aria-label="Navegación principal">
-            <a class="btn btn-ghost btn-sm" href="./pages/departamentos.php">Departamentos</a>
         </nav>
         <div class="navbar-end">
             <a class="btn btn-primary" href="./pages/login.php">Acceder</a>
