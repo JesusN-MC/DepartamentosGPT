@@ -1,3 +1,17 @@
+<?php
+require_once "../clases/Conexion.php";
+
+$conexion = new Conexion();
+$conn = $conexion->conectar();
+
+$sql_ListaUsuarios = "CALL consultar_lista_usuarios()";
+$stmtUsuarios = $conn->prepare($sql_ListaUsuarios);
+$stmtUsuarios->execute();
+$users = $stmtUsuarios->fetchAll(PDO::FETCH_ASSOC);
+$stmtUsuarios->closeCursor();
+
+?>
+
 <!DOCTYPE html>
 <html lang="es" data-theme="shadcn">
 
@@ -69,20 +83,22 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($usuarios as $usuario): ?>
+                    <?php foreach ($users as $usuario): ?>
                         <tr>
-                            <?php
-                            $rolActual = (int) $usuario['rol'];
-                            $nombreRolSuperior = $nombresRol[$rolActual + 1] ?? 'Rol ' . ($rolActual + 1);
-                            $nombreRolInferior = $nombresRol[$rolActual - 1] ?? 'Rol ' . ($rolActual - 1);
-                            ?>
                             <td>
                                 <div class="font-semibold"><?= htmlspecialchars($usuario['nombre']) ?></div>
                                 <div class="text-sm text-base-content/60"><?= htmlspecialchars($usuario['correo']) ?></div>
                             </td>
                             <td>
-                                <?php $nombreRol = $nombresRol[$rolActual] ?? 'Rol ' . $rolActual; ?>
-                                <span class="badge badge-soft"><?= htmlspecialchars($nombreRol) ?></span>
+                                <?php 
+                                    if ($usuario['rol'] == 1){
+                                        echo '<span class="badge badge-soft">Cliente</span>';
+                                    } else if ($usuario['rol'] == 2) {
+                                        echo '<span class="badge badge-soft">Arrendador</span>';
+                                    } else {
+                                        echo '<span class="badge badge-soft">Administrador</span>';
+                                    }
+                                ?>
                             </td>
                             <td><?= date('d/m/Y', strtotime($usuario['fecha_registro'])) ?></td>
                             <td>
@@ -94,26 +110,22 @@
                             </td>
                             <td>
                                 <div class="flex flex-wrap justify-end gap-2">
-                                    <?php if ($rolActual < 3): ?>
-                                        <div class="tooltip tooltip-left" data-tip="Ascender a <?= htmlspecialchars($nombreRolSuperior) ?>">
-                                            <button type="button" class="inline-flex size-10 items-center justify-center text-primary transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="Ascender a <?= htmlspecialchars($nombreRolSuperior) ?>">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                                    <path d="M12 19V5" />
-                                                    <path d="m5 12 7-7 7 7" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if ($rolActual > 1): ?>
-                                        <div class="tooltip tooltip-left" data-tip="Descender a <?= htmlspecialchars($nombreRolInferior) ?>">
-                                            <button type="button" class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Descender a <?= htmlspecialchars($nombreRolInferior) ?>">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-                                                    <path d="M12 5v14" />
-                                                    <path d="m19 12-7 7-7-7" />
-                                                </svg>
-                                            </button>
-                                        </div>
-                                    <?php endif; ?>
+                                    <div class="tooltip tooltip-left" data-tip="Ascender rol">
+                                        <button type="button" class="inline-flex size-10 items-center justify-center text-primary transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" aria-label="Ascender rol">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M12 19V5" />
+                                                <path d="m5 12 7-7 7 7" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                    <div class="tooltip tooltip-left" data-tip="Descender rol">
+                                        <button type="button" class="inline-flex size-10 items-center justify-center text-base-content transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-base-content" aria-label="Descender rol">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="size-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                                <path d="M12 5v14" />
+                                                <path d="m19 12-7 7-7-7" />
+                                            </svg>
+                                        </button>
+                                    </div>
                                     <?php if ($usuario['estado'] === 1): ?>
                                         <div class="tooltip tooltip-left" data-tip="Desactivar acceso">
                                             <button type="button" class="inline-flex size-10 items-center justify-center text-warning transition-transform hover:scale-105 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-warning" aria-label="Desactivar acceso">

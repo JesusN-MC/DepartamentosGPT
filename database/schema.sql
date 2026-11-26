@@ -431,4 +431,17 @@ BEGIN
     WHERE id = p_id;
 END$$
 
+-- 13. Listar usuarios
+DELIMITER $$
+CREATE PROCEDURE consultar_lista_usuarios()
+BEGIN
+    SELECT
+        id,
+        nombre,
+        correo,
+        rol,
+        estado,
+        fecha_registro
+    FROM usuarios;
+END$$
 DELIMITER ;
