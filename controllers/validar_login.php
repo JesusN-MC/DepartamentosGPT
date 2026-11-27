@@ -102,6 +102,7 @@ if ($payload) {
     $_SESSION['correo'] = $correo;
     $_SESSION['nombre'] = $nombre;
     $_SESSION['rol'] = $rol ?? 1;
+    $_SESSION['id']     = $idUsuario;
 
     if ($rol == 1 ) {
         header('Location: ../pages/departamentos.php', true, 303);
